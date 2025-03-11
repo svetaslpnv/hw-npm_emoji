@@ -23,40 +23,37 @@
 <body>
     <div class="app"></div>
 
-    <script type="module" src="./node_modules/emoji-picker-element/index.js"></script>
-    <script>
+    <script type="module">
+        import { Picker } from './node_modules/emoji-picker-element/index.js';
         const app = document.querySelector('.app');
 
-        function createEmojiPicker() {
-            const title = document.createElement('h1');
-            title.textContent = 'Emoji Picker :)'
-            const inputEmoji = document.createElement('input');
-            inputEmoji.classList.add('input');
-            const buttonEmoji = document.createElement('button');
-            buttonEmoji.classList.add('button');
-            buttonEmoji.textContent = 'emoji';
-            const emojiPicker = document.createElement('emoji-picker');
-            emojiPicker.classList.add('hidden');
-            app.appendChild(title);
-            app.appendChild(inputEmoji);
-            app.appendChild(buttonEmoji);
-            app.appendChild(emojiPicker);
+        const picker = new Picker();
 
-            buttonEmoji.addEventListener('click', function (event) {
-                emojiPicker.classList.toggle('hidden');
+        const title = document.createElement('h1');
+        title.textContent = 'Emoji Picker :)';
+        const inputEmoji = document.createElement('input');
+        inputEmoji.classList.add('input');
+        const buttonEmoji = document.createElement('button');
+        buttonEmoji.classList.add('button');
+        buttonEmoji.textContent = 'emoji';
+        picker.classList.add('hidden');
+        app.appendChild(title);
+        app.appendChild(inputEmoji);
+        app.appendChild(buttonEmoji);
+        app.appendChild(picker);
 
-                emojiPicker.addEventListener('emoji-click', function (event) {
-                    inputEmoji.value += event.detail.unicode;
-                })
+        buttonEmoji.addEventListener('click', function (event) {
+            picker.classList.toggle('hidden');
+
+            picker.addEventListener('emoji-click', function (event) {
+                inputEmoji.value += event.detail.unicode;
             })
+        })
 
-            inputEmoji.addEventListener('change', function (event) {
-                console.log(event.target.value);
-                inputEmoji.value = '';
-            })
-        }
-
-        createEmojiPicker();
+        inputEmoji.addEventListener('change', function (event) {
+            console.log(event.target.value);
+            inputEmoji.value = '';
+        })
     </script>
 </body>
 </html>
