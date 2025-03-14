@@ -44,12 +44,10 @@
 
         buttonEmoji.addEventListener('click', function (event) {
             picker.classList.toggle('hidden');
-
-            picker.addEventListener('emoji-click', function (event) {
-                inputEmoji.value += event.detail.unicode;
-            })
         })
-
+        picker.addEventListener('emoji-click', function (event) {
+            inputEmoji.value += event.detail.unicode;
+        })
         inputEmoji.addEventListener('change', function (event) {
             console.log(event.target.value);
             inputEmoji.value = '';
